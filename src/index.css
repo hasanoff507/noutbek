@@ -5,9 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 1140px;
-  width: 100%;
-  margin: 0 auto;
+width: 100%;
   /* padding: 0 15px; */
 }
 
@@ -18,4 +16,25 @@ code {
 
 .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   display: none !important;
+}
+
+.css-11yukd5-MuiTabs-indicator {
+  display: none;
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root {
+  padding: 19px 82px !important;
+  border-radius: 16px !important;
+  background: #F1F1F1 !important;
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  
+background: #9BE1FF !important;
+}
+.ant-card-cover{
+  padding: 20px;
+  border-radius: 16px;
 }
