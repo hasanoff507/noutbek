@@ -13,11 +13,11 @@ export const SectionNavbar = styled.section`
 `
 export const Logo = styled.img`
     width: 173px;
-    height: 56px;
+    height: 50px;
 `
 export const SelectOption = styled.select`
     width:130px;
-    height:56px;
+    height:50px;
     border-radius:16px;
     font-size:24px;
     line-height:36px;
@@ -32,7 +32,7 @@ export const Option = styled.option`
 
 export const ButtonContact = styled.button`
     width: 261px;
-    height: 56px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +64,7 @@ export const CategorySection = styled.div`
 
 export const SelectCategory = styled.select`
     width: 100%;
-    height: 56px;
+    height: 50px;
     border-radius:16px;
     border-color: #d9d9d9;
     font-family: 'Poppins';
@@ -78,7 +78,7 @@ export const SelectCategory = styled.select`
 
 export const ButtonCategorys = styled.button`
     width: 260px;
-    height: 56px;
+    height: 50px;
     border-radius: 16px;
     font-family: 'Poppins';
     font-style: normal;
