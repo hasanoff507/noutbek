@@ -1,16 +1,30 @@
 import styled from 'styled-components'
 
 export const Container = styled.section`
-max-width: 1140px;
+max-width: 1400px;
 width: 100%;
 margin: 0 auto;
+padding: 0 15px;
 `
 export const SectionNavbar = styled.section`
     display: flex;
     align-items: center; 
     justify-content: space-between; 
     gap: 30px;
+    width: 100%;
+    height: 42px;
+    margin-top: 20px;
 `
+export const SectionNavbars = styled.section`
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 30px;
+    max-width: 1070px;
+    width: 100%;
+    height: 42px;
+`
+
 export const Logo = styled.img`
     width: 173px;
     height: 50px;
@@ -31,7 +45,7 @@ export const Option = styled.option`
 `
 
 export const ButtonContact = styled.button`
-    width: 261px;
+    width: 50%;
     height: 50px;
     display: flex;
     align-items: center;
@@ -45,7 +59,6 @@ export const ButtonContact = styled.button`
     font-weight: 400;
     font-size: 24px;
     line-height: 36px;
-    /* identical to box height */
     cursor: pointer;
     color: #565656;
 `
@@ -58,6 +71,7 @@ export const CategorySection = styled.div`
     justify-content: space-between;
     gap: 30px;
     margin-top: 30px;
+    height: 42px;
 `
 
 

@@ -1,6 +1,6 @@
 import home from '../../assets/img/home.png';
 import disigner from '../../assets/img/designer.jpg'
-import games from '../../assets/img/games.jpg'
+import games from '../../assets/img/games.png'
 import programming from '../../assets/img/programming.png'
 export interface ButtonCategoryType {
     id: number,
@@ -11,24 +11,18 @@ export interface ButtonCategoryType {
 export const ButtonCategory: ButtonCategoryType[] = [
     {
         id: 1,
-        icon: home,
-        path: '/',
-        name: ''
-    },
-    {
-        id: 2,
         name: 'Dizaynerlar',
         path: '/designer',
         icon: disigner,
     },
     {
-        id: 3,
+        id: 2,
         name: 'O’yin uchun',
         path: '/games',
         icon: games
     },
     {
-        id: 4,
+        id: 3,
         name: 'Dasturlash',
         path: '/programming',
         icon: programming
