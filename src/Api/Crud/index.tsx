@@ -1,5 +1,5 @@
-import axios from "axios";
-type Data = [{
+export interface AllCardType  {
+  productID: number;
   productName: string,
   price: number,
   categoryId: number,
@@ -38,39 +38,46 @@ type Data = [{
     myProperty: string,
     addition: string
   },
-  images: [
-    string
-  ]
+  images: [{
+    imageUrl: string
 }]
-export const Urls = 'http://localhost:7020';
-
-const api = axios.create({
-  baseURL: Urls
-})
-
-
-export const getAllData = async () => {
-  const response = await api.get('/shopping/allproducts')
-  return response
 }
+export interface DataType 
+  {
+    categoryID: number, 
+    categoryName: string
+  }
 
+export const getAllCategory = async (value: DataType[]): Promise<any> => {
 
-// export const getAllData = async (value: Data[]): Promise<object> => {
-//   const data = await fetch('http://localhost:7020/shopping/allproducts',
+  const data = await fetch('http://localhost:7020/shopping/category/list',
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "GET",
+      body: JSON.stringify(value)
+    });
+    const json = await data.json();
+  return new Promise((resolve, reject) => {
+    resolve(json);
+  });
+};
 
-//     {
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//       },
-//       method: "GET",
-//       body: JSON.stringify(value)
-//     }
-//   );
-//   const json = await data.json();
+export const getAllCard = async (value: AllCardType[]): Promise<any> => {
 
-
-//   return new Promise((resolve, reject) => {
-//     resolve(json as object);
-//   });
-// };
+  const data = await fetch('http://localhost:7020/shopping/allproducts',
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "GET",
+      body: JSON.stringify(value)
+    });
+    const json = await data.json();
+  return new Promise((resolve, reject) => {
+    resolve(json);
+  });
+};

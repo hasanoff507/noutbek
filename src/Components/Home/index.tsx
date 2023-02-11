@@ -2,86 +2,49 @@ import React, { useState, useEffect } from "react";
 import { Card } from 'antd';
 import { Container } from "./styled";
 import cardImg from '../../assets/img/cardImg.png'
-// import { getAllData } from "../../Api/Crud/index";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { getAllCard, AllCardType } from "../../Api/Crud/index";
 import { useQuery } from "react-query/types/react";
-import * as api from '../../Api/Crud' 
+import { Link } from "react-router-dom";
 const { Meta } = Card;
 type Props = {};
 
-
-interface Data {
-  productName: string,
-  price: number,
-  categoryId: number,
-  addition: {
-    manufacturer: string,
-    compBrand: string,
-    compModel: string,
-    intended: string,
-    protBrand: string,
-    protModel: string,
-    minFrequency: string,
-    maxFrequency: string,
-    numberCores: number,
-    numberOfThreads: number,
-    cache: string,
-    grapihicIntegrated: string,
-    passmarkScore: string,
-    operativRam: number,
-    generationRam: string,
-    store: number,
-    storeType: string,
-    graphicBrand: string,
-    graphicModel: string,
-    graphicType: string,
-    bitsCount: string,
-    graphicCPUSize: string,
-    integratedGraphics: string,
-    audio: string
-  },
-  characteristic: {
-    protsessor: string,
-    operativMemory: string,
-    memory: string,
-    vedioCard: string,
-    display: string,
-    myProperty: string,
-    addition: string
-  },
-  images: [
-    string
-  ]
-}
-
-
-
 const Home: React.FC<Props> = ({ }: Props) => {
-  const [simpledata, setSimpledata] = useState<Data[]>([]);
 
+  const [simpledata, setSimpledata] = useState<AllCardType[]>([])
+  const [value, setValue] = useState<any>()
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllCard(value);
+      setSimpledata(response);
+    };
 
-  // const { data } =useQuery('allData', api.getAllData())
+    fetchData();
+  }, [value]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await ( getAllData() as Promise<Data[]>);
-  //     setSimpledata(   response);
-  //   };
-  //   fetchData();
-  // }, []);
+  console.log(simpledata, 'askjdhkh')
 
 
 
   return (
     <Container>
-      <Card
-        hoverable
-        style={{ width: '361px', height: '486px', background: '#F1F1F1' }}
-        cover={<img alt="example" src={cardImg} />}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '30px',flexWrap:'wrap' }}>
+        {
+          simpledata.map((item) => {
+            return (
+            <Link key={item.productID} to={`selected/${item.productID}`} style={{textDecoration:'none'}}>
+              <Card
+              key={item.productID}
+                hoverable
+                style={{ width: '360px', height: '486px', background: '#F1F1F1' }}
+                cover={<img alt="example" src={cardImg} />}
+              >
+                <Meta title={item.productName} description={`Narxi: ${item.price}`} />
+              </Card>
+              </Link>
+            )
+          })
+        }
+      </div>
     </Container>
   );
 };

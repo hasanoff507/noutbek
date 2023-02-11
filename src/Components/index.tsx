@@ -20,7 +20,7 @@ const Components: React.FC<Props> = ({ }: Props) => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/contactUs" element={<ContactUs />} />
-                    <Route path="/selected" element={<Selected />} />
+                    <Route path="/selected/:id" element={<Selected />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

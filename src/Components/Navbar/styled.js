@@ -70,7 +70,7 @@ export const CategorySection = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 30px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     height: 42px;
 `
 

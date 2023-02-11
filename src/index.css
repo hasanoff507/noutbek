@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-width: 100%;
+  width: 100%;
   /* padding: 0 15px; */
 }
 
@@ -31,35 +31,82 @@ code {
 }
 
 .css-1a4cg4j-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  
-background: #9BE1FF !important;
+
+  background: #9BE1FF !important;
 }
-.ant-card-cover{
+
+.ant-card-cover {
   padding: 20px;
   border-radius: 16px;
 }
 
-.blackbackgraund{
-  background: #9BE1FF;;
+.blackbackgraund {
+  background: #9BE1FF;
+  ;
 }
-.whitebackground{
+
+.whitebackground {
   background: #F1F1F1;
 }
 
-.selectLanguage .ant-select-selector{
+.selectLanguage .ant-select-selector {
   padding: 0 11px 0 27px !important;
   height: 42px !important;
   background: #F1F1F1 !important;
 }
-.selectLanguage :where(.css-dev-only-do-not-override-ixblex).ant-select-single.ant-select-show-arrow .ant-select-selection-item, :where(.css-dev-only-do-not-override-ixblex).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+
+.selectLanguage :where(.css-dev-only-do-not-override-ixblex).ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+:where(.css-dev-only-do-not-override-ixblex).ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
   padding-top: 5px;
-  padding-inline-start:10px;
+  padding-inline-start: 10px;
 
 }
 
-.selectCategory .ant-select-selector{
+.selectCategory .ant-select-selector {
   padding: 0 11px 0 27px !important;
   height: 42px !important;
   background: #F1F1F1 !important;
 }
-/* ant-select-selector */
+
+.selectCategory .ant-select {
+  width: 360px !important;
+}
+
+.selectCategory .ant-select-selection-item {
+  padding: 5px 0 0 30px !important;
+  font-size: 24px;
+}
+
+.Mui-selected {
+  background: #9BE1FF !important;
+}
+
+.MuiButtonBase-root {
+  width: 320px !important;
+  height: 42px !important;
+  border-radius: 16px;
+}
+
+.MuiToggleButton-root {
+  background: #F1F1F1;
+  color: #000000;
+}
+
+.ant-card-meta-title {
+
+  font-family: 'Poppins' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 30px !important;
+  color: #000000 !important;
+}
+
+.ant-card-meta-description {
+  font-family: 'Poppins' !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+  line-height: 36px !important;
+  color: #000000 !important;
+}

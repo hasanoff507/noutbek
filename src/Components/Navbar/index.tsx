@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonCategory } from "../../Api/SimpleApi";
 import noutbek from '../../assets/img/noutbek.png'
@@ -9,37 +9,47 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
+import { DataType, getAllCategory } from "../../Api/Crud";
+import { log } from "console";
 type Props = {};
-
-const selectedButtonStyle = {
-    backgroundColor: 'blue',
-    color: 'white'
-};
 
 const Navbar: React.FC<Props> = ({ }: Props) => {
     const navigate = useNavigate()
 
-    const [selectedId, setSelectedId] = useState<boolean | number>(true);
     const [alignment, setAlignment] = React.useState<string | null>('left');
 
-    console.log(selectedId);
+    const [simpledata, setSimpledata] = useState<DataType[]>([])
 
-    const handleClick = (id: number | boolean | ((prevState: number | boolean) => number | boolean)) => {
-        setSelectedId(id);
-    };
+    const [values, setValues] = useState<any>()
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getAllCategory(values);
+            setSimpledata(response);
+        };
+
+        fetchData();
+    }, [values]);
+    console.log(simpledata, 'sad');
+
+
     function handleContact() {
         navigate('/contactUs')
     }
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
+    const handleChangeCategory = (value: any,) => {
+        console.log(value)
+    };
 
 
     const handleAlignment = (
-      event: React.MouseEvent<HTMLElement>,
-      newAlignment: string | null,
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string | null,
     ) => {
-      setAlignment(newAlignment);
+        setAlignment(newAlignment);
     };
     return (
         <Container>
@@ -55,11 +65,11 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                         <Button type="default" style={{ height: '50px', fontSize: '24px', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', fontWeight: '400', lineHeight: '36px', background: '#F1F1F1' }} >Search</Button>
                     </Input.Group>
                     <div className="selectLanguage" style={{ position: 'relative' }}>
-                        <LanguageIcon style={{ position: 'absolute', zIndex: '999', top: '50%', transform: 'translateY(-50%)', paddingLeft:'7px',  }} />
+                        <LanguageIcon style={{ position: 'absolute', zIndex: '999', top: '50%', transform: 'translateY(-50%)', paddingLeft: '7px', }} />
                         <Select
 
                             defaultValue="UZ"
-                            style={{ width: "100px" ,background:'#F1F1F1;' }}
+                            style={{ width: "100px", background: '#F1F1F1' }}
                             onChange={handleChange}
                             options={[
                                 { value: 'UZ', label: 'UZ' },
@@ -71,39 +81,47 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                 </SectionNavbars>
 
             </SectionNavbar>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '30px' }}>
+                <CategorySection>
 
-            <CategorySection>
-                <div className="selectCategory" style={{position:'relative'}}>
-<MenuIcon sx={{position: 'absolute', zIndex: '999', top: '50%', transform: 'translateY(-50%)', paddingLeft:'7px',  }}/>
-                <Select
-                    defaultValue="Kategoriyalar"
-                    style={{ width: "100%" }}
-                    onChange={handleChange}
-                    options={[
-                        { value: 'Kategoriyalar', label: 'Kategoriyalar' },
-                        { value: 'lucy', label: 'Lucy' },
-                        { value: 'Yiminghe', label: 'yiminghe' },
-                    ]}
-                />
+                    <div className="selectCategory" style={{ position: 'relative' }}>
+                        <MenuIcon sx={{ position: 'absolute', zIndex: '999', top: '50%', transform: 'translateY(-50%)', paddingLeft: '7px', }} />
+
+                        <Select
+                            defaultValue="Kategoriyalar"
+                            style={{ width: "100%" }}
+                            onChange={handleChangeCategory}>
+                            {
+                                simpledata.map((item) => {
+                                    return (
+                                        <option value={item.categoryName} key={item.categoryID}>{item.categoryName}</option>
+                                )
+                                })
+                            }
+                        </Select>
+                    </div>
+                </CategorySection>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '30px' }}>
+                    {
+                        ButtonCategory.map((item) => {
+                            return (
+                                <ToggleButtonGroup
+                                    value={alignment}
+                                    exclusive
+                                    key={item.id}
+                                    onChange={handleAlignment}
+                                    aria-label="text alignment"
+                                >
+                                    <ToggleButton value={item.id} aria-label="left aligned" >
+                                        {item.name}
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                            )
+                        })
+                    }
                 </div>
-                {
-                    ButtonCategory.map((item) => {
-                        return (
-                            <ToggleButtonGroup
-                            value={alignment}
-                            exclusive
-                            key={item.id}
-                            onChange={handleAlignment}
-                            aria-label="text alignment"
-                          >
-                            <ToggleButton  value={item.id} aria-label="left aligned">
-                              {item.name}
-                            </ToggleButton>
-                          </ToggleButtonGroup>
-                        )
-                    })
-                }
-            </CategorySection>
+            </div>
+           
         </Container>
     );
 };
