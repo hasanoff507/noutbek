@@ -1,16 +1,120 @@
-import React from "react";
-
-
+import React, { useState, useEffect } from "react";
+import { Carousel } from "react-responsive-carousel";
+import cardmedia from '../../assets/img/cardImg.png'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Container, Content, CategorySelect, CategorySelectTitle, CategorySelectPrice, Quantity } from "./styled";
+import { getSelectCard, AllCardType, } from "../../Api/Crud/index";
+import { useParams } from "react-router-dom";
+import logo from '../../assets/img/logo.png'
+import { Button } from "antd";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { Characteristic } from "../../Api/SimpleApi";
 type Props = {};
 
-const Selected : React.FC<Props> = ({ }: Props) => {
+const Selected: React.FC<Props> = ({ }: Props) => {
+    const [alignment, setAlignment] = useState<string | null>('left');
 
+    const { id }: any = useParams()
+    const [simpledata, setSimpledata] = useState<AllCardType[]>([])
+    const [value, setValue] = useState<any>()
+    const [counter, setCounter] = useState(0)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getSelectCard(value, id);
+            setSimpledata(response);
+        };
+        fetchData();
+    }, [value, id]);
+
+    const handleAlignment = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string | null,
+    ) => {
+        setAlignment(newAlignment);
+    };
 
     return (
-        <div>
-            swlaslkhdjkjbbdjsfaghjhdsgjhfgj
-        </div>
+        <Container>
+            <Content>
+                <Carousel width={465}>
+                    <div >
+                        <img src={cardmedia} alt="" style={{ borderRadius: '15px' }} />
+                    </div>
+                    <div>
+                        <img src={cardmedia} alt="" style={{ borderRadius: '15px' }} />
+                    </div>
+                </Carousel>
+
+                {
+                    simpledata.map((item) => {
+                        return (
+                            <CategorySelect key={item.productID}>
+                                <CategorySelectTitle>{item.productName}</CategorySelectTitle>
+                                <CategorySelectPrice>Narxi: {item.price} s'om</CategorySelectPrice>
+                                <p style={{ width: '750px', height: '2px', background: '#D9D9D9', marginTop: '70px' }} ></p>
+                                <div style={{ display: 'flex' }}>
+                                    <div>
+                                        <Quantity>Miqdori:</Quantity>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            background: '#F1F1F1',
+                                            width: '180px',
+                                            height: '40px',
+                                            padding: '0 20px',
+                                            borderRadius: '16px',
+                                        }}>
+                                            <button style={{
+                                                border: 'none',
+                                                width: '30px',
+                                                height: '40px',
+                                                fontFamily: 'Poppins',
+                                                fontSize: '32px',
+                                                textAlign: 'center'
+                                            }}
+                                                onClick={() => setCounter(counter - 1)}>
+                                                -
+                                            </button>
+                                            <h4>{counter}</h4>
+                                            <button style={{
+                                                border: 'none',
+                                                width: '30px',
+                                                height: '40px',
+                                                fontFamily: 'Poppins',
+                                                fontSize: '32px',
+                                            }}
+                                                onClick={() => setCounter(counter + 1)}>
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <p style={{ background: '#D9D9D9', width: '2px', height: '120px', marginLeft: '170px', }}></p>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '30px', marginLeft: '40px' }}>
+                                        <div>
+                                            <img src={logo} alt="" />
+                                        </div>
+                                        <div>
+                                            <h5>Ishlab chiqaruvchi: {item.addition.manufacturer}</h5>
+                                            <h5>Modeli: {item.addition.compModel}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="shopping">
+                                    <Button>Xarid qilish</Button>
+                                </div>
+                            </CategorySelect>
+                        )
+                    })
+                }
+            </Content>
+            <button>ok</button>
+        </Container>
     );
 };
 
-export default Selected ;
+export default Selected;

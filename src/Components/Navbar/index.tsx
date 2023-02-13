@@ -69,7 +69,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                         <Select
 
                             defaultValue="UZ"
-                            style={{ width: "100px", background: '#F1F1F1' }}
+                            style={{ width: "100px" }}
                             onChange={handleChange}
                             options={[
                                 { value: 'UZ', label: 'UZ' },

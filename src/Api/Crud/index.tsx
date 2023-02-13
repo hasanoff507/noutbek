@@ -1,4 +1,5 @@
 export interface AllCardType  {
+  id: any;
   productID: number;
   productName: string,
   price: number,
@@ -68,6 +69,22 @@ export const getAllCategory = async (value: DataType[]): Promise<any> => {
 export const getAllCard = async (value: AllCardType[]): Promise<any> => {
 
   const data = await fetch('http://localhost:7020/shopping/allproducts',
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "GET",
+      body: JSON.stringify(value)
+    });
+    const json = await data.json();
+  return new Promise((resolve, reject) => {
+    resolve(json);
+  });
+};
+
+export const getSelectCard = async (value: AllCardType[],id:number): Promise<any> => {
+  const data = await fetch(`http://localhost:7020/shopping/products/${id}`,
     {
       headers: {
         Accept: "application/json",

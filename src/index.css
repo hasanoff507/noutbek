@@ -9,6 +9,13 @@ body {
   /* padding: 0 15px; */
 }
 
+h1,
+h5 {
+
+  margin-block-start: unset;
+  margin-block-end: unset;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -53,6 +60,7 @@ code {
   padding: 0 11px 0 27px !important;
   height: 42px !important;
   background: #F1F1F1 !important;
+  border-radius: 16px;
 }
 
 .selectLanguage :where(.css-dev-only-do-not-override-ixblex).ant-select-single.ant-select-show-arrow .ant-select-selection-item,
@@ -66,10 +74,12 @@ code {
   padding: 0 11px 0 27px !important;
   height: 42px !important;
   background: #F1F1F1 !important;
+  border-radius: 16px !important;
 }
 
 .selectCategory .ant-select {
   width: 360px !important;
+  border-radius: 16px;
 }
 
 .selectCategory .ant-select-selection-item {
@@ -109,4 +119,37 @@ code {
   font-size: 24px !important;
   line-height: 36px !important;
   color: #000000 !important;
+}
+
+.carousel .thumb {
+  display: none !important;
+}
+
+.carousel.carousel-slider .control-arrow {
+  display: none !important;
+}
+
+.carousel-status {
+  display: none !important;
+}
+
+.carousel .thumbs-wrapper {
+  display: none;
+}
+.shopping{
+  margin-top: 20px;
+}
+.shopping .ant-btn{
+  width: 100%;
+  height: 40px;
+  border-radius: 16px;
+  background-color: #9BE1FF;
+}
+.shopping span{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 0px;
+  color: #000000;
 }
