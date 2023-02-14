@@ -4,6 +4,7 @@ export interface AllCardType  {
   productName: string,
   price: number,
   categoryId: number,
+  additionId:number;
   addition: {
     manufacturer: string,
     compBrand: string,
@@ -30,6 +31,7 @@ export interface AllCardType  {
     integratedGraphics: string,
     audio: string
   },
+  characteristicId:number,
   characteristic: {
     protsessor: string,
     operativMemory: string,

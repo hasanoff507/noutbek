@@ -136,20 +136,57 @@ code {
 .carousel .thumbs-wrapper {
   display: none;
 }
-.shopping{
+
+.shopping {
   margin-top: 20px;
 }
-.shopping .ant-btn{
+
+.shopping .ant-btn {
   width: 100%;
   height: 40px;
   border-radius: 16px;
   background-color: #9BE1FF;
 }
-.shopping span{
+
+.shopping span {
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 0px;
   color: #000000;
+}
+
+.MuiTabs-indicator {
+  display: none;
+}
+
+.MuiBox-root {
+  border: none;
+}
+
+.MuiButtonBase-root {
+  border: 1px solid rgba(0, 0, 0, 0.16) !important;
+  background:#F1F1F1;
+}
+
+.characteristic {
+  display: flex;
+  align-items: center;
+  gap: 125px;
+}
+
+.characteristic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #000000;
+}
+.MuiTabs-flexContainer{
+  gap: 30px;
 }

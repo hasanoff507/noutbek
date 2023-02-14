@@ -7,15 +7,14 @@ import { getSelectCard, AllCardType, } from "../../Api/Crud/index";
 import { useParams } from "react-router-dom";
 import logo from '../../assets/img/logo.png'
 import { Button } from "antd";
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Characteristic } from "../../Api/SimpleApi";
+import Characteristic from "./Tabs/index";
 type Props = {};
 
 const Selected: React.FC<Props> = ({ }: Props) => {
     const [alignment, setAlignment] = useState<string | null>('left');
 
     const { id }: any = useParams()
+
     const [simpledata, setSimpledata] = useState<AllCardType[]>([])
     const [value, setValue] = useState<any>()
     const [counter, setCounter] = useState(0)
@@ -28,7 +27,7 @@ const Selected: React.FC<Props> = ({ }: Props) => {
         fetchData();
     }, [value, id]);
 
-    const handleAlignment = (
+    const handleCharacteristic = (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string | null,
     ) => {
@@ -112,7 +111,7 @@ const Selected: React.FC<Props> = ({ }: Props) => {
                     })
                 }
             </Content>
-            <button>ok</button>
+           <Characteristic simpledata={simpledata}/>
         </Container>
     );
 };
