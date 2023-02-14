@@ -11,7 +11,6 @@ import Characteristic from "./Tabs/index";
 type Props = {};
 
 const Selected: React.FC<Props> = ({ }: Props) => {
-    const [alignment, setAlignment] = useState<string | null>('left');
 
     const { id }: any = useParams()
 
@@ -27,12 +26,7 @@ const Selected: React.FC<Props> = ({ }: Props) => {
         fetchData();
     }, [value, id]);
 
-    const handleCharacteristic = (
-        event: React.MouseEvent<HTMLElement>,
-        newAlignment: string | null,
-    ) => {
-        setAlignment(newAlignment);
-    };
+   
 
     return (
         <Container>

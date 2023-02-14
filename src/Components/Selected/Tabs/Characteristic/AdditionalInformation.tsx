@@ -16,7 +16,7 @@ const AdditionalInformation: React.FC<Props> = ({ simpledata }: Props) => {
                     <div key={item.productID}>
                         <ul style={{ display: 'flex', alignItems: 'center' }}>
                             <li style={{ width: '300px', fontFamily: 'Poppins', fontWeight: '600', fontSize: '24px', }}>Model haqida ma'lumot</li>
-                            <p style={{ width: '1000px', height: '2px', background: '#D9D9D9' }}></p>
+                            <li style={{ width: '1000px', listStyle: 'none', height: '2px', background: '#D9D9D9' }}></li>
                         </ul>
                         <div style={{
                             display: 'flex',
@@ -30,27 +30,31 @@ const AdditionalInformation: React.FC<Props> = ({ simpledata }: Props) => {
                                 <li>Turi</li>
                             </ul>
 
-                            {
-                                simpledata.map((item) => {
-                                    return (
-                                        <ul key={item.additionId} style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'Poppins', fontWeight: '500', fontSize: '24px' }}>
-                                            <li>{item.addition.manufacturer}</li>
-                                            <li>{item.addition.compBrand}</li>
-                                            <li>{item.addition.compModel}</li>
-                                            <li>{item.addition.intended}</li>
-                                        </ul>
-                                    )
-                                })
-                            }
+                            <ul key={item.additionId} style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'Poppins', fontWeight: '500', fontSize: '24px' }}>
+                                <li>{item.addition.manufacturer}</li>
+                                <li>{item.addition.compBrand}</li>
+                                <li>{item.addition.compModel}</li>
+                                <li>{item.addition.intended}</li>
+                            </ul>
                         </div>
                         <ul style={{ display: 'flex', alignItems: 'center' }}>
                             <li style={{ width: '90px', fontFamily: 'Poppins', fontWeight: '600', fontSize: '24px', }}>Displey</li>
                             <p style={{ width: '1032px', height: '2px', background: '#D9D9D9' }}></p>
                         </ul>
-                        <ul style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'Poppins', fontWeight: '500', fontSize: '24px' }}>
-                            <li>Ekran diagonali</li>
-                            <li>Ekran O‘lchami</li>
-                        </ul>
+                        <div style={{
+                            display: 'flex',
+                            gap: '150px',
+                            alignItems: 'center'
+                        }}>
+                            <ul style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'Poppins', fontWeight: '500', fontSize: '24px' }}>
+                                <li>Ekran diagonali</li>
+                                <li>Ekran O‘lchami</li>
+                            </ul>
+                            <ul key={item.additionId} style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontFamily: 'Poppins', fontWeight: '500', fontSize: '24px' }}>
+                            <li>{item.addition.protBrand}</li>
+                            <li>{item.addition.protModel}</li>
+                           </ul>
+                        </div>
                         <ul style={{ display: 'flex', alignItems: 'center' }}>
                             <li style={{ width: '125px', fontFamily: 'Poppins', fontWeight: '600', fontSize: '24px', }}>Protsessor</li>
                             <p style={{ width: '1032px', height: '2px', background: '#D9D9D9' }}></p>
