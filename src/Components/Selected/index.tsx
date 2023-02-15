@@ -46,7 +46,7 @@ const Selected: React.FC<Props> = ({ }: Props) => {
                             <CategorySelect key={item.productID}>
                                 <CategorySelectTitle>{item.productName}</CategorySelectTitle>
                                 <CategorySelectPrice>Narxi: {item.price} s'om</CategorySelectPrice>
-                                <p style={{ width: '750px', height: '2px', background: '#D9D9D9', marginTop: '70px' }} ></p>
+                                <div style={{ width: '750px', height: '2px', background: '#D9D9D9', marginTop: '70px' }} ></div>
                                 <div style={{ display: 'flex' }}>
                                     <div>
                                         <Quantity>Miqdori:</Quantity>

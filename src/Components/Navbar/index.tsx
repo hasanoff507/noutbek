@@ -10,7 +10,6 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import { DataType, getAllCategory } from "../../Api/Crud";
-import { log } from "console";
 type Props = {};
 
 const Navbar: React.FC<Props> = ({ }: Props) => {
@@ -18,20 +17,40 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
 
     const [alignment, setAlignment] = React.useState<string | null>('left');
 
+    const [filteredData, setFilteredData] = useState<DataType[]>([]);
     const [simpledata, setSimpledata] = useState<DataType[]>([])
-
     const [values, setValues] = useState<any>()
+
 
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAllCategory(values);
+            const filteredData = response.filter((item: { categoryName: string; }) => item.categoryName !== 'Dizaynerlar' && item.categoryName !== 'O’yin' && item.categoryName !== 'Dasturlash');
             setSimpledata(response);
         };
-
         fetchData();
     }, [values]);
-    console.log(simpledata, 'sad');
+
+    useEffect(() => {
+        // eslint-disable-next-line array-callback-return
+        const filtered = simpledata.filter(category => {
+            switch (category.categoryID) {
+                case 14:
+                    return category
+                case 16:
+                    return category
+                case 17:
+                    return category
+                default:
+                    break;
+            }
+        })
+        console.log(filtered);
+        
+        
+        setFilteredData(filtered);
+    }, [simpledata]);
 
 
     function handleContact() {
@@ -94,7 +113,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                             {
                                 simpledata.map((item) => {
                                     return (
-                                        <option value={item.categoryName} key={item.categoryID}>{item.categoryName}</option>
+                                        <Select.Option value={item.categoryName} key={item.categoryID}>{item.categoryName}</Select.Option>
                                 )
                                 })
                             }
@@ -103,17 +122,17 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                 </CategorySection>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '30px' }}>
                     {
-                        ButtonCategory.map((item) => {
+                        filteredData.map((item) => {
                             return (
                                 <ToggleButtonGroup
                                     value={alignment}
                                     exclusive
-                                    key={item.id}
+                                    key={item.categoryID}
                                     onChange={handleAlignment}
                                     aria-label="text alignment"
                                 >
-                                    <ToggleButton value={item.id} aria-label="left aligned" >
-                                        {item.name}
+                                    <ToggleButton value={item.categoryID} aria-label="left aligned" >
+                                        {item.categoryName}
                                     </ToggleButton>
                                 </ToggleButtonGroup>
                             )
