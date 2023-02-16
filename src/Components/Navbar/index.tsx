@@ -1,36 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ButtonCategory } from "../../Api/SimpleApi";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import noutbek from '../../assets/img/noutbek.png'
 import { Button, Input, Select } from "antd";
 import LanguageIcon from '@mui/icons-material/Language';
-import { SectionNavbar, Logo, SelectOption, Option, ButtonContact, CategorySection, SectionNavbars, Container } from "./styled";
+import { SectionNavbar, Logo, ButtonContact, CategorySection, SectionNavbars, Container } from "./styled";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DataType, getAllCategory } from "../../Api/Crud";
+import { DataType, getAllCategory, getFilterCategory } from "../../Api/Crud";
+
+
 type Props = {};
 
 const Navbar: React.FC<Props> = ({ }: Props) => {
     const navigate = useNavigate()
-
-    const [alignment, setAlignment] = React.useState<string | null>('left');
+    const [alignment, setAlignment] = React.useState<string | null>('');
 
     const [filteredData, setFilteredData] = useState<DataType[]>([]);
     const [simpledata, setSimpledata] = useState<DataType[]>([])
     const [values, setValues] = useState<any>()
+    const [filterOption, setFilterOption] = useState<DataType[]>([])
 
+    const [selectValue, setSelectValue] = useState()
 
+    const [filterCategoryValue, setFilterCategoryValue] = useState<any>()
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAllCategory(values);
-            const filteredData = response.filter((item: { categoryName: string; }) => item.categoryName !== 'Dizaynerlar' && item.categoryName !== 'O’yin' && item.categoryName !== 'Dasturlash');
             setSimpledata(response);
+            const filtered = response.filter((item: { categoryName: string; }) => item.categoryName !== "Dizaynerlar" && item.categoryName !== "O’yin" && item.categoryName !== "Dasturlash");
+            setFilterOption(filtered);
         };
         fetchData();
     }, [values]);
+
 
     useEffect(() => {
         // eslint-disable-next-line array-callback-return
@@ -46,9 +51,6 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                     break;
             }
         })
-        console.log(filtered);
-        
-        
         setFilteredData(filtered);
     }, [simpledata]);
 
@@ -59,17 +61,29 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
-    const handleChangeCategory = (value: any,) => {
+    const handleChangeCategory = async (value: any,) => {
         console.log(value)
+        const selectCategorys = await getFilterCategory(filterCategoryValue, value);
+        console.log(selectCategorys);
     };
 
+    const inputChange = (e: any) => {
+        const inputValue = e.target.value
+        console.log(inputValue);
+    }
 
-    const handleAlignment = (
-        event: React.MouseEvent<HTMLElement>,
-        newAlignment: string | null,
-    ) => {
+    const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null,) => {
         setAlignment(newAlignment);
     };
+
+    const handleClick = async (e: any) => {
+        const id = e.target.value;
+        const response = await getFilterCategory(filterCategoryValue, id);
+        // setFilterCategory(response);
+        console.log(response, 'sasa');
+
+    };
+
     return (
         <Container>
             <SectionNavbar >
@@ -78,7 +92,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                 </Link>
                 <SectionNavbars >
                     <Input.Group compact>
-                        <Input
+                        <Input onChange={inputChange}
                             style={{ width: "calc(590px - 200px)", height: '50px', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px', background: '#F1F1F1' }}
                         />
                         <Button type="default" style={{ height: '50px', fontSize: '24px', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', fontWeight: '400', lineHeight: '36px', background: '#F1F1F1' }} >Search</Button>
@@ -109,12 +123,15 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                         <Select
                             defaultValue="Kategoriyalar"
                             style={{ width: "100%" }}
-                            onChange={handleChangeCategory}>
+                            onChange={handleChangeCategory}
+                            // value={selectValue}
+                        >
+
                             {
-                                simpledata.map((item) => {
+                                filterOption.map((item) => {
                                     return (
-                                        <Select.Option value={item.categoryName} key={item.categoryID}>{item.categoryName}</Select.Option>
-                                )
+                                        <Select.Option value={item.categoryID} key={item.categoryID}>{item.categoryName}</Select.Option>
+                                    )
                                 })
                             }
                         </Select>
@@ -131,7 +148,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                                     onChange={handleAlignment}
                                     aria-label="text alignment"
                                 >
-                                    <ToggleButton value={item.categoryID} aria-label="left aligned" >
+                                    <ToggleButton onClick={handleClick} value={item.categoryID}  >
                                         {item.categoryName}
                                     </ToggleButton>
                                 </ToggleButtonGroup>
@@ -140,7 +157,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                     }
                 </div>
             </div>
-           
+
         </Container>
     );
 };

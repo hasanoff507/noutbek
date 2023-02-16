@@ -1,4 +1,5 @@
 export interface AllCardType  {
+  map(arg0: (item: any) => JSX.Element): import("react").ReactNode;
   id: any;
   productID: number;
   productName: string,
@@ -100,3 +101,24 @@ export const getSelectCard = async (value: AllCardType[],id:number): Promise<any
     resolve(json);
   });
 };
+
+
+export const getFilterCategory = async (value: AllCardType[],id:number): Promise<any> => {
+  const data = await fetch(`http://localhost:7020/shopping/${id}/allproducts`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "GET",
+      body: JSON.stringify(value)
+    });
+    const json = await data.json();
+  return new Promise((resolve, reject) => {
+    resolve(json);
+  });
+};
+
+
+
+

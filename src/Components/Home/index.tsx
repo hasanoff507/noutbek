@@ -6,23 +6,11 @@ import { getAllCard, AllCardType } from "../../Api/Crud/index";
 import { useQuery } from "react-query/types/react";
 import { Link } from "react-router-dom";
 const { Meta } = Card;
-type Props = {};
+type Props = {
+  simpledata:AllCardType[]
+};
 
-const Home: React.FC<Props> = ({ }: Props) => {
-
-  const [simpledata, setSimpledata] = useState<AllCardType[]>([])
-  const [value, setValue] = useState<any>()
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAllCard(value);
-      setSimpledata(response);
-    };
-
-    fetchData();
-  }, [value]);
-
-  console.log(simpledata, 'askjdhkh')
-
+const Home: React.FC<Props> = ({ simpledata }: Props) => {
 
 
   return (

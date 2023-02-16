@@ -8,24 +8,17 @@ import { useParams } from "react-router-dom";
 import logo from '../../assets/img/logo.png'
 import { Button } from "antd";
 import Characteristic from "./Tabs/index";
-type Props = {};
+type Props = {
+    simpledata:AllCardType[]
+};
 
-const Selected: React.FC<Props> = ({ }: Props) => {
+const Selected: React.FC<Props> = ({ simpledata }: Props) => {
 
-    const { id }: any = useParams()
+    // const { id }: any = useParams()
 
-    const [simpledata, setSimpledata] = useState<AllCardType[]>([])
-    const [value, setValue] = useState<any>()
     const [counter, setCounter] = useState(0)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await getSelectCard(value, id);
-            setSimpledata(response);
-        };
-        fetchData();
-    }, [value, id]);
-
+   
    
 
     return (
