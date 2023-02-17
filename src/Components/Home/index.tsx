@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Card } from 'antd';
 import { Container } from "./styled";
 import cardImg from '../../assets/img/cardImg.png'
-import { getAllCard, AllCardType } from "../../Api/Crud/index";
-import { useQuery } from "react-query/types/react";
+import {  AllCardType, getAllCategory } from "../../Api/Crud/index";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 const { Meta } = Card;
 type Props = {
   simpledata:AllCardType[]

@@ -3,7 +3,7 @@ import { AllCardType } from "../../../../Api/Crud";
 
 
 type Props = {
-    simpledata:AllCardType[]
+  simpledata:AllCardType[]
 };
 
 const Information : React.FC<Props> = ({simpledata }: Props) => {

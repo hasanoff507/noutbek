@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import noutbek from '../../assets/img/noutbek.png'
 import { Button, Input, Select } from "antd";
@@ -8,33 +8,42 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DataType, getAllCategory, getFilterCategory } from "../../Api/Crud";
+import { AllCardType, DataType, getAllCategory, getFilterCategory } from "../../Api/Crud";
+import { useQuery } from "react-query";
 
 
-type Props = {};
+interface Props  {
+    setData: Dispatch<SetStateAction<AllCardType[]>>
+};
 
-const Navbar: React.FC<Props> = ({ }: Props) => {
+const Navbar: React.FC<Props> = ({setData }: Props) => {
+
+
+
+
     const navigate = useNavigate()
     const [alignment, setAlignment] = React.useState<string | null>('');
 
     const [filteredData, setFilteredData] = useState<DataType[]>([]);
     const [simpledata, setSimpledata] = useState<DataType[]>([])
-    const [values, setValues] = useState<any>()
     const [filterOption, setFilterOption] = useState<DataType[]>([])
 
-    const [selectValue, setSelectValue] = useState()
 
-    const [filterCategoryValue, setFilterCategoryValue] = useState<any>()
+   
 
+
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const fetchData = async () => {
-            const response = await getAllCategory(values);
+            const response = await getAllCategory();
             setSimpledata(response);
             const filtered = response.filter((item: { categoryName: string; }) => item.categoryName !== "Dizaynerlar" && item.categoryName !== "O’yin" && item.categoryName !== "Dasturlash");
             setFilterOption(filtered);
+           
         };
         fetchData();
-    }, [values]);
+    }, []);
 
 
     useEffect(() => {
@@ -63,13 +72,15 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
     };
     const handleChangeCategory = async (value: any,) => {
         console.log(value)
-        const selectCategorys = await getFilterCategory(filterCategoryValue, value);
-        console.log(selectCategorys);
+        const selectCategorys = await getFilterCategory(value);
+        setData(selectCategorys);
+
     };
 
     const inputChange = (e: any) => {
         const inputValue = e.target.value
-        console.log(inputValue);
+        // console.log(inputValue);
+        setData(inputValue)
     }
 
     const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null,) => {
@@ -78,12 +89,13 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
 
     const handleClick = async (e: any) => {
         const id = e.target.value;
-        const response = await getFilterCategory(filterCategoryValue, id);
+        const response = await getFilterCategory( id);
+        setData(response);
         // setFilterCategory(response);
         console.log(response, 'sasa');
 
     };
-
+  
     return (
         <Container>
             <SectionNavbar >
@@ -95,7 +107,7 @@ const Navbar: React.FC<Props> = ({ }: Props) => {
                         <Input onChange={inputChange}
                             style={{ width: "calc(590px - 200px)", height: '50px', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px', background: '#F1F1F1' }}
                         />
-                        <Button type="default" style={{ height: '50px', fontSize: '24px', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', fontWeight: '400', lineHeight: '36px', background: '#F1F1F1' }} >Search</Button>
+                        <Button type="default"  style={{ height: '50px', fontSize: '24px', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', fontWeight: '400', lineHeight: '36px', background: '#F1F1F1' }} >Search</Button>
                     </Input.Group>
                     <div className="selectLanguage" style={{ position: 'relative' }}>
                         <LanguageIcon style={{ position: 'absolute', zIndex: '999', top: '50%', transform: 'translateY(-50%)', paddingLeft: '7px', }} />

@@ -8,17 +8,30 @@ import { useParams } from "react-router-dom";
 import logo from '../../assets/img/logo.png'
 import { Button } from "antd";
 import Characteristic from "./Tabs/index";
+import { useQuery } from "react-query";
 type Props = {
-    simpledata:AllCardType[]
+    
 };
 
-const Selected: React.FC<Props> = ({ simpledata }: Props) => {
+const Selected: React.FC<Props> = ({  }: Props) => {
 
-    // const { id }: any = useParams()
+
+
+    const { id }: any = useParams()
+    const [simpledata, setSimpledata] = useState<AllCardType[]>([])
+
+    const {isError,isLoading}= useQuery('items')
 
     const [counter, setCounter] = useState(0)
 
-   
+    useEffect(() => {
+        const SelectData = async () => {
+            const response:any= await getSelectCard(id);
+            setSimpledata(response);
+        };
+
+        SelectData();
+    }, [id]);
    
 
     return (
@@ -98,7 +111,7 @@ const Selected: React.FC<Props> = ({ simpledata }: Props) => {
                     })
                 }
             </Content>
-           <Characteristic simpledata={simpledata}/>
+           <Characteristic simpledata={simpledata} />
         </Container>
     );
 };
