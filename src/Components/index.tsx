@@ -9,7 +9,6 @@ import Footer from "./Footer";
 import { AllCardType, getAllCard, getAllCategory, getSelectCard } from "../Api/Crud";
 import { useQuery } from "react-query";
 
-
 type Props = {
 
 };
@@ -19,12 +18,15 @@ const Components: React.FC<Props> = ({ }: Props) => {
     const {isError,isLoading}= useQuery('data' , getAllCategory,)
 
     const [dataHome, setData] = useState<AllCardType[]>([])
+    const [defaultData, setDefaultData]=useState<AllCardType[]>([])
+
 
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAllCard();
             setData(response);
+            setDefaultData(response)
         };
         fetchData();
         
@@ -46,7 +48,7 @@ const Components: React.FC<Props> = ({ }: Props) => {
     return (
         <Container>
             <BrowserRouter>
-                <Navbar setData={setData} />
+                <Navbar setData={setData} dataHome={dataHome} defaultData={defaultData} setDefaultData={setDefaultData}/>
                 <Routes>
                     <Route path="/" element={<Home simpledata={dataHome} />} />
                     <Route path="/selected/:id" element={<Selected />} />
